@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
                 {"1", "10", "52"}, // Current / min / money
                 {"2", "0", "69"}, // Win / no time / money
                 {"3", "0", "-28"}, // Lost /no time / money
-                {"4", "0", "0"} // Judgement / no time / no money
+                {"4", "0", "0"}, // Judgement / no time / no money
+                {"1", "10", "10"}, // Current / min / money
+                {"1", "10", "100"}, // Current / min / money
         };
 
         ArrayList<ListItem> contracts = new ArrayList<>();

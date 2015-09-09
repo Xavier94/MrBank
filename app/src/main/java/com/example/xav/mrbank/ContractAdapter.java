@@ -2,6 +2,7 @@ package com.example.xav.mrbank;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,48 +97,53 @@ public class ContractAdapter extends BaseAdapter implements AdapterView.OnItemCl
         // nous pouvons attribuer à nos vues les valeurs de l'élément de la liste
         // New
         if (listItem.getStatus() == 0) {
-            mViewHolder.layoutList.setBackgroundColor(0xf5f5f5);
+            mViewHolder.layoutList.setBackgroundColor(Color.parseColor("#f5f5f5"));
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_actif);
             mViewHolder.textViewStatus.setText(R.string.list_contract_status_new_contract);
-            //mViewHolder.textViewStatus.setTextColor(0xa500eb);
+            mViewHolder.textViewStatus.setTextColor(Color.parseColor("#a500eb"));
             mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
             mViewHolder.textViewMoney.setText(R.string.list_contract_status_new);
+            mViewHolder.textViewMoney.setBackgroundResource(R.drawable.bg_circle_purple);
         }
         // Current
         else if (listItem.getStatus() == 1) {
-            mViewHolder.layoutList.setBackgroundColor(0xfff);
+            mViewHolder.layoutList.setBackgroundColor(Color.parseColor("#ffffff"));
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_inactif);
             mViewHolder.textViewStatus.setText("Contrat en cours");
-            //mViewHolder.textViewStatus.setTextColor(0x787878);
+            mViewHolder.textViewStatus.setTextColor(Color.parseColor("#787878"));
             mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
             mViewHolder.textViewMoney.setText(String.valueOf(listItem.getMoney()) + "€");
+            mViewHolder.textViewMoney.setBackgroundResource(R.drawable.bg_circle_yellow);
         }
         // Win
         else if (listItem.getStatus() == 2) {
-            mViewHolder.layoutList.setBackgroundColor(0xfff);
+            mViewHolder.layoutList.setBackgroundColor(Color.parseColor("#ffffff"));
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_inactif);
             mViewHolder.textViewStatus.setText("Contrat gagné");
-            //mViewHolder.textViewStatus.setTextColor(0x787878);
+            mViewHolder.textViewStatus.setTextColor(Color.parseColor("#787878"));
             mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
             mViewHolder.textViewMoney.setText(String.valueOf(listItem.getMoney()) + "€");
+            mViewHolder.textViewMoney.setBackgroundResource(R.drawable.bg_circle_green);
         }
         // Lost
         else if (listItem.getStatus() == 3) {
-            mViewHolder.layoutList.setBackgroundColor(0xfff);
+            mViewHolder.layoutList.setBackgroundColor(Color.parseColor("#ffffff"));
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_inactif);
             mViewHolder.textViewStatus.setText("Contrat perdu");
-            //mViewHolder.textViewStatus.setTextColor(0x787878);
+            mViewHolder.textViewStatus.setTextColor(Color.parseColor("#787878"));
             mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
             mViewHolder.textViewMoney.setText(String.valueOf(listItem.getMoney()) + "€");
+            mViewHolder.textViewMoney.setBackgroundResource(R.drawable.bg_circle_red);
         }
         // Judgement
         else {
-            mViewHolder.layoutList.setBackgroundColor(0xfff);
+            mViewHolder.layoutList.setBackgroundColor(Color.parseColor("#ffffff"));
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_inactif);
-            mViewHolder.textViewStatus.setText("Demande dejugement");
-            //mViewHolder.textViewStatus.setTextColor(0x787878);
+            mViewHolder.textViewStatus.setText("Demande de jugement");
+            mViewHolder.textViewStatus.setTextColor(Color.parseColor("#787878"));
             mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
             mViewHolder.textViewMoney.setText(String.valueOf(listItem.getMoney()) + "€");
+            mViewHolder.textViewMoney.setBackgroundResource(R.drawable.bg_circle_yellow);
         }
 
         //mViewHolder.imageView.setImageResource(listItem.getImageId());
