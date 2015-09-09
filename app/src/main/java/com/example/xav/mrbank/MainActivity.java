@@ -24,15 +24,21 @@ public class MainActivity extends AppCompatActivity {
         int[] images = { R.drawable.a01, R.drawable.a02, R.drawable.a03 };
 
         String[][] data = new String[][] {
-                {"0", "", ""}, // New
-                {"1", "", ""}, // Win
-                {"2", "", ""}, // Lost
+                {"0", "120", "0"}, // New
+                {"1", "10", "52"}, // Current
+                {"2", "0", "69"}, // Win
+                {"3", "0", "-28"} // Lost
         };
 
         ArrayList<ListItem> contracts = new ArrayList<>();
 
+        /*
         for (int i = 0; i < names.length; i++) {
             contracts.add(new ListItem(names[i], ages[i], images[i]));
+        }
+        */
+        for (int i = 0; i < data.length; i++) {
+            contracts.add(new ListItem(data[i]));
         }
 
         ContractAdapter adapter = new ContractAdapter(this, contracts);
