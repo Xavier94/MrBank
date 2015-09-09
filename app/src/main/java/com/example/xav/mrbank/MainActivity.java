@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
         int[] images = { R.drawable.a01, R.drawable.a02, R.drawable.a03 };
 
         String[][] data = new String[][] {
-                {"0", "120", "0"}, // New
-                {"1", "10", "52"}, // Current
-                {"2", "0", "69"}, // Win
-                {"3", "0", "-28"} // Lost
+                {"0", "120", "0"}, // New / min / no money
+                {"1", "10", "52"}, // Current / min / money
+                {"2", "0", "69"}, // Win / no time / money
+                {"3", "0", "-28"}, // Lost /no time / money
+                {"4", "0", "0"} // Judgement / no time / no money
         };
 
         ArrayList<ListItem> contracts = new ArrayList<>();

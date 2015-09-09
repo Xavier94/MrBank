@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageViewIconMoney"
-        android:layout_height="28dp"
-        android:layout_width="28dp"
+        android:layout_height="30dp"
+        android:layout_width="30dp"
         android:src="@drawable/bg_sac_inactif"
         android:contentDescription="@string/list_contract_icon_money"
         />
@@ -18,7 +18,7 @@
         android:id="@+id/textViewStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="LKJLK"
         android:textColor="#787878"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -45,6 +45,7 @@
         android:gravity="center"
         android:textColor="#fff"
         android:textSize="12sp"
+        android:layout_margin="4dp"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/textViewMoney"
         />
@@ -58,6 +59,7 @@
         android:gravity="center"
         android:textColor="#fff"
         android:textSize="12sp"
+        android:layout_margin="4dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         />
