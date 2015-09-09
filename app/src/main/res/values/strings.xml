@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MrBank</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="list_contract_icon_money">Icon money</string>
+    <string name="list_contract_status_new">New</string>
+    <string name="list_contract_status_detail">Detail</string>
+</resources>

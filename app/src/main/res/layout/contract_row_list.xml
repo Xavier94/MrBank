@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutList"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#f5f5f5">
+
+    <ImageView
+        android:id="@+id/imageViewIconMoney"
+        android:layout_height="28dp"
+        android:layout_width="28dp"
+        android:src="@drawable/bg_sac_inactif"
+        android:contentDescription="@string/list_contract_icon_money"
+        />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#787878"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@id/imageViewIconMoney"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_contract_status_detail"
+        android:textColor="#cacaca"
+        android:textSize="14sp"
+        android:layout_below="@id/textViewStatus"
+        android:layout_toEndOf="@id/imageViewIconMoney"
+        />
+
+    <TextView
+        android:id="@+id/textViewTimer"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circle_purple"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/textViewMoney"
+        />
+
+    <TextView
+        android:id="@+id/textViewMoney"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_circle_purple"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        />
+
+</RelativeLayout>
