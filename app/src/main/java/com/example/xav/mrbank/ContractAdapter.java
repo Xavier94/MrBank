@@ -78,7 +78,8 @@ public class ContractAdapter extends BaseAdapter implements AdapterView.OnItemCl
             mViewHolder.layoutList = (RelativeLayout) convertView.findViewById(R.id.layoutList);
             mViewHolder.imageViewIconMoney = (ImageView) convertView.findViewById(R.id.imageViewIconMoney);
             mViewHolder.textViewStatus = (TextView) convertView.findViewById(R.id.textViewStatus);
-            //mViewHolder.textViewAge = (TextView) convertView.findViewById(R.id.textViewAge);
+            mViewHolder.textViewTimer = (TextView) convertView.findViewById(R.id.textViewTimer);
+            mViewHolder.textViewMoney = (TextView) convertView.findViewById(R.id.textViewMoney);
             //mViewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
 
             // nous attribuons comme tag notre MyViewHolder à convertView
@@ -97,14 +98,22 @@ public class ContractAdapter extends BaseAdapter implements AdapterView.OnItemCl
             mViewHolder.layoutList.setBackgroundColor(200);
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_actif);
             mViewHolder.textViewStatus.setText("Nouveau");
+            mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
         }
-        else {
+        else if (listItem.getStatus() == 1) {
             mViewHolder.layoutList.setBackgroundColor(100);
             mViewHolder.imageViewIconMoney.setImageResource(R.drawable.bg_sac_inactif);
             mViewHolder.textViewStatus.setText("Un autre");
+            mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
+            mViewHolder.textViewTimer.setBackgroundResource(R.drawable.bg_circle_green);
+        }
+        else if (listItem.getStatus() == 2) {
+            mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
+        }
+        else if (listItem.getStatus() == 3) {
+            mViewHolder.textViewTimer.setText(String.valueOf(listItem.getTimeLeft()));
         }
 
-        mViewHolder.textViewAge.setText(String.valueOf(listItem.getAge()) + " ans");
         //mViewHolder.imageView.setImageResource(listItem.getImageId());
 
         // nous retournons la vue de l'item demandé
@@ -118,8 +127,8 @@ public class ContractAdapter extends BaseAdapter implements AdapterView.OnItemCl
         RelativeLayout layoutList;
         ImageView imageViewIconMoney;
         TextView textViewStatus;
-        TextView textViewAge;
-
+        TextView textViewTimer;
+        TextView textViewMoney;
     }
 
     // nous affichons un Toast à chaque clic sur un item de la liste
