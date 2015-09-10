@@ -2,6 +2,7 @@ package com.example.xav.mrbank;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -167,7 +168,13 @@ public class ContractAdapter extends BaseAdapter implements AdapterView.OnItemCl
     // nous récupérons l'objet grâce à sa position
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast toast = Toast.makeText(context, "Item " + (position + 1) + ": " + this.list_contract.get(position), Toast.LENGTH_SHORT);
-        toast.show();
+        //Toast toast = Toast.makeText(context, "Item " + (position + 1) + ": " + this.list_contract.get(position), Toast.LENGTH_SHORT);
+        //toast.show();
+
+        Intent detailActivity = new Intent(context, DetailActivity.class);
+        // On rajoute un extra
+        //secondeActivite.putExtra(AGE, 31);
+        // Puis on lance l'intent !
+        context.startActivity(detailActivity);
     }
 }
