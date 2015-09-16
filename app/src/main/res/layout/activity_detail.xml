@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Terms"
+        android:text="@string/detail_contract_terms"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:textColor="#cacaca"
@@ -25,18 +25,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Friends contractors"
+        android:text="@string/detail_contract_contractor"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:textColor="#cacaca"
-        android:background="#f5f5f5"/>
+        android:background="@drawable/bg_grey_border"/>
 
-
+    <ListView
+        android:id="@+id/list_contractor"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Amount of participation"
+        android:text="@string/detail_contract_amount"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:textColor="#cacaca"

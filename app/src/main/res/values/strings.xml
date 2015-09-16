@@ -10,5 +10,9 @@
     <string name="list_contract_status_new_contract">New contract</string>
     <string name="list_contract_status_detail">Detail</string>
 
+    <string name="detail_contract_terms">Terms</string>
+    <string name="detail_contract_contractor">Friends contractors</string>
+    <string name="detail_contract_amount">Amount of participation</string>
+
 
 </resources>
