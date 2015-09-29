@@ -1,5 +1,8 @@
 package com.example.xav.mrbank;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class ListItem {
 
     public static final int STATUS_NEW = 0;
@@ -22,6 +25,19 @@ public class ListItem {
         this.status = Integer.parseInt(data[0]);
         this.timeLeft = Integer.parseInt(data[1]);
         this.money = Integer.parseInt(data[2]);
+    }
+
+    public ListItem(JSONArray data) {
+        try {
+            this.status = data.getInt(0);
+            this.timeLeft = data.getInt(1);
+            this.money = data.getInt(2);
+        }
+        catch (Exception e) {
+            this.status = 0;
+            this.timeLeft = 0;
+            this.money = 0;
+        }
     }
 
     public String getName() {

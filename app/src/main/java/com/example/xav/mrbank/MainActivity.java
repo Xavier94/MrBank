@@ -17,6 +17,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ListView contract;
     TextView tvConnected;
     EditText etResponse;
+    JSONArray json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         contract = (ListView) findViewById(R.id.list_contract);
+        // TODO: Replace array by JSON
         String[][] data = new String[][] {
                 {"0", "120", "0"}, // New / min / no money
                 {"1", "10", "52"}, // Current / min / money
@@ -67,9 +70,16 @@ public class MainActivity extends AppCompatActivity {
                 {"0", "120", "0"}, // New / min / no money
         };
         ArrayList<ListItem> contracts = new ArrayList<>();
-        for (int i = 0; i < data.length; i++) {
-            contracts.add(new ListItem(data[i]));
+        // TODO: Revoir l'appel http car est plus long que l'affichage
+        try {
+            for (int i = 0; i < json.length(); i++) {
+                contracts.add(new ListItem(json.getJSONArray(i)));
+            }
         }
+        catch (Exception e) {
+            Log.d("InputStream", "debug");
+        }
+
         ContractAdapter adapter = new ContractAdapter(this, contracts);
         contract.setAdapter(adapter);
         contract.setOnItemClickListener(adapter);
@@ -130,11 +140,12 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             //Toast.makeText(getBaseContext(), "Received!", Toast.LENGTH_LONG).show();
             try {
-                JSONObject json = new JSONObject(result);
-                etResponse.setText(json.toString());
+                json = new JSONArray(result);
+                //etResponse.setText(json.toString());
+                Log.d("RESULT", json.toString());
             }
             catch (Exception e) {
-                etResponse.setText("Vide");
+                etResponse.setText("Erreur json !!!");
             }
         }
     }
