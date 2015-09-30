@@ -1,0 +1,9 @@
+
+
+1 - Comprendre et ajouter un Thread pour gerer la connexion vers un serveur.
+
+2 - Voir comment mettre a jour les donnees dans une vue apres le telechargement.
+
+3 - Comprendre le parsing JSON
+
+4 - Comprendre le telechargement d'une image a partir d'une URL.
