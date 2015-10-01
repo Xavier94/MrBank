@@ -1,5 +1,7 @@
 package com.example.xav.mrbank;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -11,29 +13,36 @@ public class ListItem {
     private int imageId;
     private int age;
 
+    private int contract_id;
     private int status;
     private int timeLeft;
     private int money;
 
     public ListItem(String name, int age, int imageId) {
+        this.contract_id = 0;
         this.name = name;
         this.age = age;
         this.imageId = imageId;
     }
 
     public ListItem(String[] data) {
+        this.contract_id = 0;
         this.status = Integer.parseInt(data[0]);
         this.timeLeft = Integer.parseInt(data[1]);
         this.money = Integer.parseInt(data[2]);
     }
 
-    public ListItem(JSONArray data) {
+    public ListItem(JSONObject data) {
         try {
-            this.status = data.getInt(0);
-            this.timeLeft = data.getInt(1);
-            this.money = data.getInt(2);
+            Log.d("ListItem", "PASSE ICI ????????");
+            Log.d("ListItem", data.getString("id"));
+            this.contract_id = data.getInt("id");
+            this.status = data.getInt("status");
+            this.timeLeft = data.getInt("timeLeft");
+            this.money = data.getInt("money");
         }
         catch (Exception e) {
+            this.contract_id = 0;
             this.status = 0;
             this.timeLeft = 0;
             this.money = 0;
@@ -90,6 +99,6 @@ public class ListItem {
 
     @Override
     public String toString() {
-        return this.name + " : " + this.age;
+        return this.contract_id + " : " + this.name + " : " + this.age;
     }
 }

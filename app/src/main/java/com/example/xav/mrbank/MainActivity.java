@@ -3,6 +3,8 @@ package com.example.xav.mrbank;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,13 +27,64 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.lang.Thread;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final int MSG_CONFIRM_RESULT = 0;
 
     ListView contract;
     TextView tvConnected;
     EditText etResponse;
     JSONArray json;
+
+    private Thread threadHttp = null;
+
+
+    // Gère les communications avec le thread de téléchargement
+    final private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            // L'avancement se situe dans msg.arg1
+            Log.d("Handler", "Maj UI ?");
+            Log.d("Handler", "msg = " + msg.arg1);
+
+            // TODO: Replace array by JSON
+            String[][] data = new String[][] {
+                    {"0", "120", "0"}, // New / min / no money
+                    {"1", "10", "52"}, // Current / min / money
+                    {"2", "0", "69"}, // Win / no time / money
+                    {"3", "0", "-28"}, // Lost /no time / money
+                    {"4", "0", "0"}, // Judgement / no time / no money
+                    {"1", "10", "10"}, // Current / min / money
+                    {"1", "10", "100"}, // Current / min / money
+                    {"2", "0", "69"}, // Win / no time / money
+                    {"4", "0", "0"}, // Judgement / no time /
+                    {"0", "120", "0"}, // New / min / no money
+                    {"0", "120", "0"}, // New / min / no money
+            };
+            ArrayList<ListItem> contracts = new ArrayList<>();
+            // TODO: Revoir l'appel http car est plus long que l'affichage
+            try {
+
+                Log.d("Handler", "Length = " + json.length());
+
+                for (int i = 0; i < json.length(); i++) {
+                    //Log.d("Handler", json.getJSONArray(i).toString());
+                    Log.d("Handler", json.getJSONObject(i).getString("id"));
+                    contracts.add(new ListItem(json.getJSONObject(i)));
+                }
+            }
+            catch (Exception e) {
+                Log.d("Handler", "Exception :(");
+            }
+
+            ContractAdapter adapter = new ContractAdapter(MainActivity.this, contracts);
+            contract.setAdapter(adapter);
+            contract.setOnItemClickListener(adapter);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,47 +95,54 @@ public class MainActivity extends AppCompatActivity {
         tvConnected = (TextView) findViewById(R.id.tvConnected);
         etResponse = (EditText) findViewById(R.id.etResponse);
 
+        contract = (ListView) findViewById(R.id.list_contract);
+
         // check if you are connected or not
         if (isConnected()) {
             tvConnected.setBackgroundColor(0xFF00CC00);
-            tvConnected.setText("You are conncted");
+            tvConnected.setText("You are connected");
         }
         else {
-            tvConnected.setText("You are NOT conncted");
+            tvConnected.setText("You are NOT connected");
         }
-        new HttpAsyncTask().execute("http://192.168.41.115/test-php/test-json.php");
+        //new HttpAsyncTask().execute("http://192.168.41.115/test-php/test-json.php");
 
+        ////////////////////////////// THREAD //////////////////////////////////////////////////////
+        new Thread(new Runnable() {
+            public void run() {
+                //try {
+                    String result = GET("http://192.168.41.115/test-php/test-json.php");
+                    try {
+                        json = new JSONArray(result);
+                        Log.d("RESULT", json.toString());
+                    }
+                    catch (Exception e) {
+                        Log.d("StringToJSON", "ERREUR PARSING");
+                        json = new JSONArray();
+                    }
 
+                    // Le fichier a été téléchargé
+                    if (json.length() > 0) {
+                        Message msg = mHandler.obtainMessage(MSG_CONFIRM_RESULT, 1, 0);
+                        mHandler.sendMessage(msg);
 
-        contract = (ListView) findViewById(R.id.list_contract);
-        // TODO: Replace array by JSON
-        String[][] data = new String[][] {
-                {"0", "120", "0"}, // New / min / no money
-                {"1", "10", "52"}, // Current / min / money
-                {"2", "0", "69"}, // Win / no time / money
-                {"3", "0", "-28"}, // Lost /no time / money
-                {"4", "0", "0"}, // Judgement / no time / no money
-                {"1", "10", "10"}, // Current / min / money
-                {"1", "10", "100"}, // Current / min / money
-                {"2", "0", "69"}, // Win / no time / money
-                {"4", "0", "0"}, // Judgement / no time /
-                {"0", "120", "0"}, // New / min / no money
-                {"0", "120", "0"}, // New / min / no money
-        };
-        ArrayList<ListItem> contracts = new ArrayList<>();
-        // TODO: Revoir l'appel http car est plus long que l'affichage
-        try {
-            for (int i = 0; i < json.length(); i++) {
-                contracts.add(new ListItem(json.getJSONArray(i)));
+                        /*
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Download OK !", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        */
+                    }
+                //}
+                //catch (Exception e) {
+                    // Si le thread est interrompu, on sort de la boucle de cette manière
+                    //e.printStackTrace();
+                //}
             }
-        }
-        catch (Exception e) {
-            Log.d("InputStream", "debug");
-        }
-
-        ContractAdapter adapter = new ContractAdapter(this, contracts);
-        contract.setAdapter(adapter);
-        contract.setOnItemClickListener(adapter);
+        }).start();
+        ////////////////////////////// THREAD //////////////////////////////////////////////////////
     }
 
     public static String GET(String url) {
