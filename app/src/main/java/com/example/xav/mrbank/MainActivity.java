@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
     EditText etResponse;
     JSONArray json;
 
-    private Thread threadHttp = null;
-
-
     // Gère les communications avec le thread de téléchargement
     final private Handler mHandler = new Handler() {
         @Override
@@ -50,26 +47,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Handler", "Maj UI ?");
             Log.d("Handler", "msg = " + msg.arg1);
 
-            // TODO: Replace array by JSON
-            String[][] data = new String[][] {
-                    {"0", "120", "0"}, // New / min / no money
-                    {"1", "10", "52"}, // Current / min / money
-                    {"2", "0", "69"}, // Win / no time / money
-                    {"3", "0", "-28"}, // Lost /no time / money
-                    {"4", "0", "0"}, // Judgement / no time / no money
-                    {"1", "10", "10"}, // Current / min / money
-                    {"1", "10", "100"}, // Current / min / money
-                    {"2", "0", "69"}, // Win / no time / money
-                    {"4", "0", "0"}, // Judgement / no time /
-                    {"0", "120", "0"}, // New / min / no money
-                    {"0", "120", "0"}, // New / min / no money
-            };
             ArrayList<ListItem> contracts = new ArrayList<>();
-            // TODO: Revoir l'appel http car est plus long que l'affichage
             try {
-
                 Log.d("Handler", "Length = " + json.length());
-
                 for (int i = 0; i < json.length(); i++) {
                     //Log.d("Handler", json.getJSONArray(i).toString());
                     Log.d("Handler", json.getJSONObject(i).getString("id"));
@@ -172,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     // convert inputstream to String
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
+        String line;
         String result = "";
         while((line = bufferedReader.readLine()) != null)
             result += line;

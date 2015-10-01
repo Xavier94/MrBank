@@ -7,3 +7,17 @@
 3 - Comprendre le parsing JSON
 
 4 - Comprendre le telechargement d'une image a partir d'une URL.
+
+public void onClick(View v) {
+    new Thread(new Runnable() {
+        public void run() {
+            final Bitmap bitmap =
+                    loadImageFromNetwork("http://example.com/image.png");
+            mImageView.post(new Runnable() {
+                public void run() {
+                    mImageView.setImageBitmap(bitmap);
+                }
+            });
+        }
+    }).start();
+}
